@@ -1,0 +1,92 @@
+<Window
+        xmlns:p="clr-namespace:OSEMAddIn.Properties" x:Class="OSEMAddIn.Views.ExportOptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:OSEMAddIn.ViewModels"
+        mc:Ignorable="d"
+        Title="{x:Static p:Resources.Export_Options}" Height="500" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        d:DataContext="{d:DesignInstance viewModels:ExportOptionsViewModel}">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Template Selection -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static p:Resources.Select_Template}" FontWeight="Bold" Margin="0,0,0,4"/>
+            <ComboBox ItemsSource="{Binding Templates}" 
+                      SelectedItem="{Binding SelectedTemplate}"
+                      DisplayMemberPath="DisplayName"/>
+        </StackPanel>
+
+        <!-- Date Range -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static p:Resources.Event_Range}" FontWeight="Bold" Margin="0,0,0,4"/>
+            <StackPanel Orientation="Horizontal">
+                <DatePicker SelectedDate="{Binding StartDate}" Width="120"/>
+                <TextBlock Text=" - " VerticalAlignment="Center" Margin="8,0"/>
+                <DatePicker SelectedDate="{Binding EndDate}" Width="120"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Content Options -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static p:Resources.Export_Content}" FontWeight="Bold" Margin="0,0,0,4"/>
+            <CheckBox Content="{x:Static p:Resources.Event_Dashboard_Data}" IsChecked="{Binding ExportDashboardData}" Margin="0,2"/>
+            <CheckBox Content="{x:Static p:Resources.Event_Attachments}" IsChecked="{Binding ExportEventAttachments}" Margin="0,2"/>
+            <CheckBox Content="{x:Static p:Resources.Event_Files}" IsChecked="{Binding ExportAdditionalFiles}" Margin="0,2"/>
+        </StackPanel>
+
+        <!-- File Type Filters -->
+        <StackPanel Grid.Row="3" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static p:Resources.File_Type_Filter}" FontWeight="Bold" Margin="0,0,0,4"/>
+            <CheckBox Content="{x:Static p:Resources.All_Files_No_Filter}" IsChecked="{Binding ExportAllFileTypes}" Margin="0,0,0,4"/>
+            <Expander Header="{x:Static p:Resources.Select_File_Types}" IsExpanded="False" BorderBrush="LightGray" BorderThickness="1" IsEnabled="{Binding AreSpecificFileTypesEnabled}">
+                <ScrollViewer MaxHeight="150" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding FileTypeOptions}" Margin="4">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Label}" IsChecked="{Binding IsSelected}" Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Expander>
+        </StackPanel>
+
+        <!-- Folder Naming -->
+        <StackPanel Grid.Row="4" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static p:Resources.Export_Folder_Naming}" FontWeight="Bold" Margin="0,0,0,4"/>
+            <ComboBox ItemsSource="{Binding NamingOptions}" 
+                      SelectedItem="{Binding FolderNamingMode}"/>
+        </StackPanel>
+
+        <!-- Destination -->
+        <StackPanel Grid.Row="5" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static p:Resources.Save_Location}" FontWeight="Bold" Margin="0,0,0,4"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding TargetPath}" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="1" Content="{x:Static p:Resources.Browse}" Command="{Binding BrowseCommand}" Margin="8,0,0,0" Padding="8,2"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Export Button -->
+        <Button Grid.Row="7" Content="{x:Static p:Resources.Export}" Command="{Binding ExportCommand}" 
+                HorizontalAlignment="Right" Padding="20,6" IsDefault="True"/>
+    </Grid>
+</Window>

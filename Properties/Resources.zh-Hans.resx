@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Event_Manager" xml:space="preserve">
+    <value>事件管理器</value>
+  </data>
+  <data name="Extracting" xml:space="preserve">
+    <value>提取中...</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>准备就绪</value>
+  </data>
+  <data name="General_Template" xml:space="preserve">
+    <value>通用模板</value>
+  </data>
+  <data name="Basic_fields_for_general_events" xml:space="preserve">
+    <value>适用于通用事件的基础字段。</value>
+  </data>
+  <data name="Logistics_Demo_Template" xml:space="preserve">
+    <value>物流演示模板</value>
+  </data>
+  <data name="Example_dashboard_fields_for_t_7331d7" xml:space="preserve">
+    <value>适用于典型货运订单的仪表盘字段示例。</value>
+  </data>
+  <data name="Standard_Reply_Template" xml:space="preserve">
+    <value>标准回复模板</value>
+  </data>
+  <data name="p_Hello_p_p_We_have_received_y_5e6bbc" xml:space="preserve">
+    <value>&lt;p&gt;您好，&lt;/p&gt;&lt;p&gt;我们已收到您的邮件，将尽快处理。&lt;/p&gt;</value>
+  </data>
+  <data name="New_Event_Notification" xml:space="preserve">
+    <value>新建事件通知</value>
+  </data>
+  <data name="Latest_update_on_Event_EventId" xml:space="preserve">
+    <value>关于事件 {{EventId}} 的最新进展</value>
+  </data>
+  <data name="p_Dear_Customer_p_p_Here_is_th_713eca" xml:space="preserve">
+    <value>&lt;p&gt;尊敬的客户，&lt;/p&gt;&lt;p&gt;以下是事件 {{EventId}} 的最新进展...&lt;/p&gt;</value>
+  </data>
+  <data name="Subject_s_s_subject_r_n_t" xml:space="preserve">
+    <value>(?:Subject|主题|主旨|標題|제목|件名)\s*[:：]\s*(?&lt;subject&gt;.+(?:\r?\n[ \t]+.+)*)</value>
+  </data>
+  <data name="RE" xml:space="preserve">
+    <value>回复:</value>
+  </data>
+  <data name="FW" xml:space="preserve">
+    <value>转发:</value>
+  </data>
+  <data name="RE_1" xml:space="preserve">
+    <value>回覆:</value>
+  </data>
+  <data name="FW_1" xml:space="preserve">
+    <value>轉寄:</value>
+  </data>
+  <data name="RE_2" xml:space="preserve">
+    <value>回复：</value>
+  </data>
+  <data name="FW_2" xml:space="preserve">
+    <value>转发：</value>
+  </data>
+  <data name="RE_3" xml:space="preserve">
+    <value>回覆：</value>
+  </data>
+  <data name="FW_3" xml:space="preserve">
+    <value>轉寄：</value>
+  </data>
+  <data name="No_Subject_Event" xml:space="preserve">
+    <value>(无主题事件)</value>
+  </data>
+  <data name="Event_record_EventId_does_not_exist" xml:space="preserve">
+    <value>事件 {0} 不存在。</value>
+  </data>
+  <data name="General_Info_Extraction" xml:space="preserve">
+    <value>通用信息提取</value>
+  </data>
+  <data name="Please_extract_dashboard_field_6914e4" xml:space="preserve">
+    <value>请根据以下邮件内容提取仪表盘字段：{{DASHBOARD_JSON}}</value>
+  </data>
+  <data name="HAWB_Detail_Extraction" xml:space="preserve">
+    <value>HAWB详细信息提取</value>
+  </data>
+  <data name="Extract_HAWB_related_fields_fr_c126bf" xml:space="preserve">
+    <value>从邮件和附件中提取HAWB相关字段并输出JSON：{{DASHBOARD_JSON}}</value>
+  </data>
+  <data name="External_Python_Analysis_Script" xml:space="preserve">
+    <value>外部Python分析脚本</value>
+  </data>
+  <data name="Example_script_Extract_HAWB_fi_402944" xml:space="preserve">
+    <value>示例脚本：从PDF附件中提取HAWB字段。</value>
+  </data>
+  <data name="Script_not_found" xml:space="preserve">
+    <value>未找到脚本</value>
+  </data>
+  <data name="Unable_to_start_Python_process" xml:space="preserve">
+    <value>无法启动Python进程。</value>
+  </data>
+  <data name="Ready_1" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Requesting_LLM_extraction" xml:space="preserve">
+    <value>正在请求 LLM 提取...</value>
+  </data>
+  <data name="Unable_to_parse_selected_email" xml:space="preserve">
+    <value>无法解析选中的邮件。</value>
+  </data>
+  <data name="Extraction_completed" xml:space="preserve">
+    <value>提取完成。</value>
+  </data>
+  <data name="Extraction_failed_ex_Message" xml:space="preserve">
+    <value>提取失败: {0}</value>
+  </data>
+  <data name="Preparing_to_refresh" xml:space="preserve">
+    <value>正在准备刷新...</value>
+  </data>
+  <data name="Syncing_conversationIds_Count_conversations" xml:space="preserve">
+    <value>正在同步 {0} 个对话...</value>
+  </data>
+  <data name="Searching_for_related_subject_emails" xml:space="preserve">
+    <value>正在搜索相关主题邮件...</value>
+  </data>
+  <data name="Reloading_event_data" xml:space="preserve">
+    <value>正在重新加载事件数据...</value>
+  </data>
+  <data name="Validating_email_availability" xml:space="preserve">
+    <value>正在验证邮件有效性...</value>
+  </data>
+  <data name="Updating_UI" xml:space="preserve">
+    <value>正在更新界面...</value>
+  </data>
+  <data name="Create_Event_Folder_Enter_folder_name" xml:space="preserve">
+    <value>创建事件文件夹 (请输入文件夹名称)</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>文件夹|*.*</value>
+  </data>
+  <data name="Failed_to_create_folder_ex_Message" xml:space="preserve">
+    <value>创建文件夹失败: {0}</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Folder_does_not_exist_LocalFolderPath" xml:space="preserve">
+    <value>文件夹不存在: {0}</value>
+  </data>
+  <data name="Updating_folder" xml:space="preserve">
+    <value>正在更新文件夹...</value>
+  </data>
+  <data name="Processing_current_total_fileVm_FileName" xml:space="preserve">
+    <value>正在处理 ({0}/{1}): {2}</value>
+  </data>
+  <data name="Folder_update_completed" xml:space="preserve">
+    <value>文件夹更新完成</value>
+  </data>
+  <data name="Failed_to_update_folder_ex_Message" xml:space="preserve">
+    <value>更新文件夹失败: {0}</value>
+  </data>
+  <data name="Update_Failed" xml:space="preserve">
+    <value>更新失败</value>
+  </data>
+  <data name="Copied_non_empty_Json_keys_to_clipboard" xml:space="preserve">
+    <value>已复制非空Jsonkey到剪切板</value>
+  </data>
+  <data name="No_non_empty_Json_keys_to_copy" xml:space="preserve">
+    <value>没有可复制的非空Jsonkey</value>
+  </data>
+  <data name="Copy_failed_ex_Message" xml:space="preserve">
+    <value>复制失败: {0}</value>
+  </data>
+  <data name="No_matching_events_to_export" xml:space="preserve">
+    <value>没有符合条件的事件可导出。</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="Export_completed" xml:space="preserve">
+    <value>导出完成。</value>
+  </data>
+  <data name="Export_failed_ex_Message" xml:space="preserve">
+    <value>导出失败: {0}</value>
+  </data>
+  <data name="PDF_Document_pdf" xml:space="preserve">
+    <value>PDF 文档 (.pdf)</value>
+  </data>
+  <data name="Word_Document_doc_docx" xml:space="preserve">
+    <value>Word 文档 (.doc, .docx)</value>
+  </data>
+  <data name="Excel_Spreadsheet_xls_xlsx_csv" xml:space="preserve">
+    <value>Excel 表格 (.xls, .xlsx, .csv)</value>
+  </data>
+  <data name="PPT_Presentation_ppt_pptx" xml:space="preserve">
+    <value>PPT 演示文稿 (.ppt, .pptx)</value>
+  </data>
+  <data name="Image_png_jpg_bmp" xml:space="preserve">
+    <value>图片 (.png, .jpg, .bmp...)</value>
+  </data>
+  <data name="Archive_zip_rar_7z" xml:space="preserve">
+    <value>压缩包 (.zip, .rar, .7z...)</value>
+  </data>
+  <data name="Text_File_txt_md_rtf" xml:space="preserve">
+    <value>文本文件 (.txt, .md, .rtf)</value>
+  </data>
+  <data name="Ollama_Local" xml:space="preserve">
+    <value>Ollama 本地</value>
+  </data>
+  <data name="Global_All_Templates" xml:space="preserve">
+    <value>全局 (所有模板)</value>
+  </data>
+  <data name="Current_Template_Only" xml:space="preserve">
+    <value>当前模板专用</value>
+  </data>
+  <data name="Dashboard_Structure" xml:space="preserve">
+    <value>仪表盘结构</value>
+  </data>
+  <data name="Auto_generated_JSON_field_stru_56821c" xml:space="preserve">
+    <value>自动生成的 JSON 字段结构，用于告诉 LLM 需要提取哪些字段。</value>
+  </data>
+  <data name="Email_Subject" xml:space="preserve">
+    <value>邮件标题</value>
+  </data>
+  <data name="Subject_of_the_currently_selected_email" xml:space="preserve">
+    <value>当前选中邮件的主题 (Subject)。</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>发件人</value>
+  </data>
+  <data name="Sender_name_of_the_currently_selected_email" xml:space="preserve">
+    <value>当前选中邮件的发件人名称。</value>
+  </data>
+  <data name="Email_Body_Full" xml:space="preserve">
+    <value>邮件正文 (完整)</value>
+  </data>
+  <data name="Full_body_content_of_the_curre_6337dd" xml:space="preserve">
+    <value>当前选中邮件的完整正文内容 (包含历史回复)。</value>
+  </data>
+  <data name="Email_Body_Latest_Only" xml:space="preserve">
+    <value>邮件正文 (仅最新)</value>
+  </data>
+  <data name="Attempts_to_extract_only_the_l_418b31" xml:space="preserve">
+    <value>尝试仅提取当前邮件的最新回复内容，去除历史引用。</value>
+  </data>
+  <data name="No_template_associated_will_apply_to_all_templates" xml:space="preserve">
+    <value>未关联任何模板 (将应用于所有模板)</value>
+  </data>
+  <data name="Associated" xml:space="preserve">
+    <value>已关联: </value>
+  </data>
+  <data name="New_Template" xml:space="preserve">
+    <value>新建模板</value>
+  </data>
+  <data name="Import_Template_Package" xml:space="preserve">
+    <value>导入模板包</value>
+  </data>
+  <data name="Import_successful" xml:space="preserve">
+    <value>导入成功！</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Import_failed_ex_Message" xml:space="preserve">
+    <value>导入失败: {0}</value>
+  </data>
+  <data name="Please_select_a_template_to_export_first" xml:space="preserve">
+    <value>请先选择要导出的模板。</value>
+  </data>
+  <data name="Export_Template_Package" xml:space="preserve">
+    <value>导出模板包</value>
+  </data>
+  <data name="Export_successful" xml:space="preserve">
+    <value>导出成功！</value>
+  </data>
+  <data name="Export_All_Templates" xml:space="preserve">
+    <value>导出所有模板</value>
+  </data>
+  <data name="Current_Prompt_does_not_contai_b912e4" xml:space="preserve">
+    <value>当前 Prompt 未包含 {{MAIL_BODY}} 或 {{MAIL_BODY_LATEST}}。\n这意味着 LLM 可能无法获取邮件正文内容。\n\n是否确认保存？</value>
+  </data>
+  <data name="Missing_Email_Body_Variable" xml:space="preserve">
+    <value>缺少邮件正文变量</value>
+  </data>
+  <data name="LLM_configuration_saved" xml:space="preserve">
+    <value>LLM配置已保存</value>
+  </data>
+  <data name="All_changes_saved" xml:space="preserve">
+    <value>全部更改已保存</value>
+  </data>
+  <data name="Backup_export_successful" xml:space="preserve">
+    <value>备份导出成功！</value>
+  </data>
+  <data name="Backup_import_successful_Pleas_5048f2" xml:space="preserve">
+    <value>备份导入成功！请重启插件或刷新界面以查看更新。</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="This_folder_is_already_in_the_monitor_list" xml:space="preserve">
+    <value>该文件夹已在监控列表中。</value>
+  </data>
+  <data name="Please_select_an_email_folder" xml:space="preserve">
+    <value>请选择一个邮件文件夹。</value>
+  </data>
+  <data name="Failed_to_add_folder_ex_Message" xml:space="preserve">
+    <value>添加文件夹失败: {0}</value>
+  </data>
+  <data name="Import_Conflict" xml:space="preserve">
+    <value>导入冲突</value>
+  </data>
+  <data name="A_local_item_named" xml:space="preserve">
+    <value>本地已存在一个名为 </value>
+  </data>
+  <data name="already_exists_How_would_you_like_to_proceed" xml:space="preserve">
+    <value> 的项，您希望如何操作？</value>
+  </data>
+  <data name="Overwrite_Local" xml:space="preserve">
+    <value>覆盖本地版本</value>
+  </data>
+  <data name="Keep_Local_Skip" xml:space="preserve">
+    <value>保留本地版本，跳过此项</value>
+  </data>
+  <data name="Import_and_Rename" xml:space="preserve">
+    <value>导入并重命名</value>
+  </data>
+  <data name="Export_Options" xml:space="preserve">
+    <value>导出选项</value>
+  </data>
+  <data name="Select_Template" xml:space="preserve">
+    <value>选择模板</value>
+  </data>
+  <data name="Event_Range" xml:space="preserve">
+    <value>事件跨度</value>
+  </data>
+  <data name="Export_Content" xml:space="preserve">
+    <value>导出内容</value>
+  </data>
+  <data name="Event_Dashboard_Data" xml:space="preserve">
+    <value>事件仪表盘数据表</value>
+  </data>
+  <data name="Event_Attachments" xml:space="preserve">
+    <value>事件附件区</value>
+  </data>
+  <data name="Event_Files" xml:space="preserve">
+    <value>事件文件区</value>
+  </data>
+  <data name="File_Type_Filter" xml:space="preserve">
+    <value>文件类型筛选</value>
+  </data>
+  <data name="All_Files_No_Filter" xml:space="preserve">
+    <value>全部文件 (不筛选格式)</value>
+  </data>
+  <data name="Select_File_Types" xml:space="preserve">
+    <value>选择文件类型</value>
+  </data>
+  <data name="Export_Folder_Naming" xml:space="preserve">
+    <value>导出文件夹命名</value>
+  </data>
+  <data name="Save_Location" xml:space="preserve">
+    <value>保存位置</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>浏览...</value>
+  </data>
+  <data name="Back_to_List" xml:space="preserve">
+    <value>← 返回列表</value>
+  </data>
+  <data name="Binding_Status_StringFormat_Status_0" xml:space="preserve">
+    <value>状态: {0}</value>
+  </data>
+  <data name="Archive_Event" xml:space="preserve">
+    <value>归档事件</value>
+  </data>
+  <data name="Reopen" xml:space="preserve">
+    <value>重新打开</value>
+  </data>
+  <data name="Event_Template" xml:space="preserve">
+    <value>事件模板:</value>
+  </data>
+  <data name="Select_columns_to_display_or_enter_custom_content" xml:space="preserve">
+    <value>选择显示列或输入自定义内容</value>
+  </data>
+  <data name="Enter_custom_Info_content" xml:space="preserve">
+    <value>输入自定义Info内容</value>
+  </data>
+  <data name="Run_LLM_Extraction" xml:space="preserve">
+    <value>执行LLM提取</value>
+  </data>
+  <data name="Regex_Extraction" xml:space="preserve">
+    <value>正则提取:</value>
+  </data>
+  <data name="Run_Regex_Extraction" xml:space="preserve">
+    <value>执行正则提取</value>
+  </data>
+  <data name="Script" xml:space="preserve">
+    <value>脚本:</value>
+  </data>
+  <data name="Run_Script" xml:space="preserve">
+    <value>执行脚本</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Email_Pool" xml:space="preserve">
+    <value>邮件池</value>
+  </data>
+  <data name="Refresh_Emails" xml:space="preserve">
+    <value>刷新邮件</value>
+  </data>
+  <data name="Res_30_Days_Default" xml:space="preserve">
+    <value>30天 (默认)</value>
+  </data>
+  <data name="Res_45_Days" xml:space="preserve">
+    <value>45天</value>
+  </data>
+  <data name="Res_60_Days" xml:space="preserve">
+    <value>60天</value>
+  </data>
+  <data name="Res_180_Days" xml:space="preserve">
+    <value>180天</value>
+  </data>
+  <data name="All_10_Years" xml:space="preserve">
+    <value>全部 (10年)</value>
+  </data>
+  <data name="Remove_Selected" xml:space="preserve">
+    <value>移除选中</value>
+  </data>
+  <data name="Mark_All_Read" xml:space="preserve">
+    <value>一键已读</value>
+  </data>
+  <data name="Recipient" xml:space="preserve">
+    <value>收件人</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Received_Time" xml:space="preserve">
+    <value>接收时间</value>
+  </data>
+  <data name="Remove_this_email" xml:space="preserve">
+    <value>移除这封邮件</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="Filename" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="Received_Time_1" xml:space="preserve">
+    <value>收取时间</value>
+  </data>
+  <data name="Email_Name" xml:space="preserve">
+    <value>邮件名</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="File_Area" xml:space="preserve">
+    <value>文件区</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Generate_Folder" xml:space="preserve">
+    <value>生成文件夹</value>
+  </data>
+  <data name="Update_to_Folder" xml:space="preserve">
+    <value>更新至文件夹</value>
+  </data>
+  <data name="Prompt_management_interface_no_c1825d" xml:space="preserve">
+    <value>Prompt管理界面尚未实现，将在未来版本中提供。</value>
+  </data>
+  <data name="Outlook_cannot_find_this_email_9e5a34" xml:space="preserve">
+    <value>Outlook 无法找到这封邮件，可能已被移动或删除。</value>
+  </data>
+  <data name="Email_Unavailable" xml:space="preserve">
+    <value>邮件不可用</value>
+  </data>
+  <data name="Error_opening_email_please_try_again_later" xml:space="preserve">
+    <value>打开邮件时遇到错误，请稍后重试。</value>
+  </data>
+  <data name="Cannot_Open_Email" xml:space="preserve">
+    <value>无法打开邮件</value>
+  </data>
+  <data name="Cannot_open_file_ex_Message" xml:space="preserve">
+    <value>无法打开文件: {0}</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Filter_by_Template" xml:space="preserve">
+    <value>按模板筛选</value>
+  </data>
+  <data name="Filter_Template" xml:space="preserve">
+    <value>筛选模板</value>
+  </data>
+  <data name="Clear_Filter" xml:space="preserve">
+    <value>清除筛选</value>
+  </data>
+  <data name="Refresh_All" xml:space="preserve">
+    <value>全部刷新</value>
+  </data>
+  <data name="Template_Rules" xml:space="preserve">
+    <value>模板规则</value>
+  </data>
+  <data name="Template_Editor" xml:space="preserve">
+    <value>模板编辑器</value>
+  </data>
+  <data name="Complete_Selected" xml:space="preserve">
+    <value>完结选中项</value>
+  </data>
+  <data name="Select_Global_Script" xml:space="preserve">
+    <value>选择全局脚本</value>
+  </data>
+  <data name="Select_Script" xml:space="preserve">
+    <value>选择脚本</value>
+  </data>
+  <data name="Active_Events" xml:space="preserve">
+    <value>进行中的事件</value>
+  </data>
+  <data name="Last_Updated" xml:space="preserve">
+    <value>最后更新时间</value>
+  </data>
+  <data name="Event_ID" xml:space="preserve">
+    <value>事件ID</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>优先级</value>
+  </data>
+  <data name="Toggle_Priority" xml:space="preserve">
+    <value>切换优先级</value>
+  </data>
+  <data name="Change_Event_Title" xml:space="preserve">
+    <value>更改 Event Title</value>
+  </data>
+  <data name="End_and_Archive_Event" xml:space="preserve">
+    <value>结束并归档事件</value>
+  </data>
+  <data name="Delete_Event" xml:space="preserve">
+    <value>删除事件</value>
+  </data>
+  <data name="Completed_Events" xml:space="preserve">
+    <value>已完结的事件</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="Reset_Month" xml:space="preserve">
+    <value>重置月份</value>
+  </data>
+  <data name="Reopen_Event" xml:space="preserve">
+    <value>重新打开事件</value>
+  </data>
+  <data name="Template_Config_Editor" xml:space="preserve">
+    <value>模板与配置编辑器</value>
+  </data>
+  <data name="Dashboard_Templates" xml:space="preserve">
+    <value>仪表盘模板</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Import_Template" xml:space="preserve">
+    <value>导入模板</value>
+  </data>
+  <data name="Export_Selected_Template" xml:space="preserve">
+    <value>导出已选模板</value>
+  </data>
+  <data name="Template_Name" xml:space="preserve">
+    <value>模板名称:</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述:</value>
+  </data>
+  <data name="Fields_Regex" xml:space="preserve">
+    <value>字段与正则</value>
+  </data>
+  <data name="Field_Name_Key" xml:space="preserve">
+    <value>字段名 (Key)</value>
+  </data>
+  <data name="Regex_Rule" xml:space="preserve">
+    <value>正则规则 (Regex)</value>
+  </data>
+  <data name="Add_Field" xml:space="preserve">
+    <value>添加字段 (+)</value>
+  </data>
+  <data name="Delete_Selected_Field" xml:space="preserve">
+    <value>删除选中字段</value>
+  </data>
+  <data name="Common_Files" xml:space="preserve">
+    <value>常用文件</value>
+  </data>
+  <data name="Add_File" xml:space="preserve">
+    <value>添加文件...</value>
+  </data>
+  <data name="Remove_File" xml:space="preserve">
+    <value>移除文件</value>
+  </data>
+  <data name="Prompt_Management" xml:space="preserve">
+    <value>Prompt 管理</value>
+  </data>
+  <data name="New_Prompt" xml:space="preserve">
+    <value>新建 Prompt</value>
+  </data>
+  <data name="Prompt_Name" xml:space="preserve">
+    <value>Prompt 名称:</value>
+  </data>
+  <data name="Associated_Template_Optional" xml:space="preserve">
+    <value>关联模板 (可选)</value>
+  </data>
+  <data name="Prompt_Content" xml:space="preserve">
+    <value>Prompt 内容:</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>← 插入</value>
+  </data>
+  <data name="Insert_selected_variable_at_cursor" xml:space="preserve">
+    <value>将选中的变量插入到光标位置</value>
+  </data>
+  <data name="Available_Variables" xml:space="preserve">
+    <value>可用变量</value>
+  </data>
+  <data name="Save_Prompt" xml:space="preserve">
+    <value>保存 Prompt</value>
+  </data>
+  <data name="Script_Management" xml:space="preserve">
+    <value>脚本管理</value>
+  </data>
+  <data name="Add_Script" xml:space="preserve">
+    <value>添加脚本</value>
+  </data>
+  <data name="Script_Name" xml:space="preserve">
+    <value>脚本名称:</value>
+  </data>
+  <data name="Global_Script_Access_all_event_data" xml:space="preserve">
+    <value>全局脚本 (可访问所有事件数据)</value>
+  </data>
+  <data name="Script_Path" xml:space="preserve">
+    <value>脚本路径:</value>
+  </data>
+  <data name="LLM_Settings" xml:space="preserve">
+    <value>LLM 设置</value>
+  </data>
+  <data name="LLM_Model_Config_Global" xml:space="preserve">
+    <value>LLM 模型配置 (全局)</value>
+  </data>
+  <data name="Save_Config" xml:space="preserve">
+    <value>保存配置</value>
+  </data>
+  <data name="Monitored_Folders" xml:space="preserve">
+    <value>监听文件夹</value>
+  </data>
+  <data name="Custom_Monitored_Folders" xml:space="preserve">
+    <value>自定义监听文件夹</value>
+  </data>
+  <data name="Besides_default_Inbox_and_Sent_bab4c6" xml:space="preserve">
+    <value>除了默认的收件箱(Inbox)和已发送(Sent Items)，您可以在此添加其他需要监听的文件夹。</value>
+  </data>
+  <data name="Folder_Name" xml:space="preserve">
+    <value>文件夹名称</value>
+  </data>
+  <data name="Full_Path" xml:space="preserve">
+    <value>完整路径</value>
+  </data>
+  <data name="Add_Folder" xml:space="preserve">
+    <value>添加文件夹...</value>
+  </data>
+  <data name="Export_Import" xml:space="preserve">
+    <value>导出/导入</value>
+  </data>
+  <data name="System_Backup_Migration" xml:space="preserve">
+    <value>系统备份与迁移</value>
+  </data>
+  <data name="Export_all_current_settings_ex_c4a3e1" xml:space="preserve">
+    <value>导出当前所有设置（模板、Prompt、脚本、LLM配置除外）和事件列表。</value>
+  </data>
+  <data name="Export_Backup" xml:space="preserve">
+    <value>导出备份...</value>
+  </data>
+  <data name="Import_Backup_Merge_Mode" xml:space="preserve">
+    <value>导入备份（合并模式）</value>
+  </data>
+  <data name="Import_backup_file_Existing_da_edc9d3" xml:space="preserve">
+    <value>导入备份文件。现有数据将被保留，新数据将被添加，冲突数据将根据时间戳更新。</value>
+  </data>
+  <data name="Import_Backup" xml:space="preserve">
+    <value>导入备份...</value>
+  </data>
+  <data name="Save_All_Changes" xml:space="preserve">
+    <value>保存全部更改</value>
+  </data>
+  <data name="Template_Rule_Manager" xml:space="preserve">
+    <value>模板规则管理</value>
+  </data>
+  <data name="Participants_Emails_semicolon_separated" xml:space="preserve">
+    <value>参与者 (邮箱，用分号分隔)</value>
+  </data>
+  <data name="Preferred_Template" xml:space="preserve">
+    <value>首选模板</value>
+  </data>
+  <data name="Add_Rule" xml:space="preserve">
+    <value>添加规则</value>
+  </data>
+  <data name="Delete_Rule" xml:space="preserve">
+    <value>删除规则</value>
+  </data>
+  <data name="Save_and_Close" xml:space="preserve">
+    <value>保存并关闭</value>
+  </data>
+  <data name="Scope" xml:space="preserve">
+    <value>作用范围</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>提供方</value>
+  </data>
+  <data name="Ollama_Model" xml:space="preserve">
+    <value>Ollama 模型</value>
+  </data>
+  <data name="Enter_model_name_directly_e_g_llama3_8b" xml:space="preserve">
+    <value>可直接输入模型名称，例如 llama3:8b。</value>
+  </data>
+  <data name="Endpoint_e_g_https_api_example_8affd9" xml:space="preserve">
+    <value>Endpoint 例如 https://api.example.com/v1/chat/completions</value>
+  </data>
+  <data name="Model_Name" xml:space="preserve">
+    <value>模型名称</value>
+  </data>
+  <data name="Model_ID_used_for_requests" xml:space="preserve">
+    <value>将用于请求的模型 ID。</value>
+  </data>
+  <data name="Clear_Template_Override" xml:space="preserve">
+    <value>清除模板覆盖</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Failed_to_load_Ollama_model_list_ex_Message" xml:space="preserve">
+    <value>加载 Ollama 模型列表失败：{0}</value>
+  </data>
+  <data name="Force_Activate" xml:space="preserve">
+    <value>强制激活</value>
+  </data>
+  <data name="Outlook_is_busy_processing_items" xml:space="preserve">
+    <value>Outlook 正在处理项目...</value>
+  </data>
+</root>

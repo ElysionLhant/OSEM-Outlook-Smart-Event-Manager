@@ -1,0 +1,343 @@
+<UserControl
+        xmlns:p="clr-namespace:OSEMAddIn.Properties" x:Class="OSEMAddIn.Views.EventManager.EventManagerView"
+             x:Name="RootControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:OSEMAddIn.Converters"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0 0 0 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                <Grid Width="200" Margin="0 0 8 0">
+                    <TextBox x:Name="SearchBox"
+                             VerticalContentAlignment="Center"
+                             Padding="2,0,20,0"
+                             Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="{x:Static p:Resources.Search}"
+                               VerticalAlignment="Center"
+                               Margin="5,0,20,0"
+                               Foreground="#999999"
+                               IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <Button Command="{Binding ClearSearchCommand}"
+                            Width="20"
+                            HorizontalAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <Button.Content>
+                            <Path Data="M0,0 L8,8 M0,8 L8,0" Stroke="#666666" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E5E5E5"/>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding SearchTerm}" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SearchTerm}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+                <Grid Margin="0 0 8 0">
+                    <ComboBox x:Name="FilterTemplateBox"
+                              Width="120"
+                              ItemsSource="{Binding DashboardTemplates}"
+                              SelectedItem="{Binding SelectedFilterTemplate}"
+                              DisplayMemberPath="DisplayName"
+                              ToolTip="{x:Static p:Resources.Filter_by_Template}" />
+                    <TextBlock Text="{x:Static p:Resources.Filter_Template}"
+                               VerticalAlignment="Center"
+                               Margin="5,0,20,0"
+                               Foreground="#999999"
+                               IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=FilterTemplateBox}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+                <Button Command="{Binding SetFilterToNullCommand}" 
+                        Width="20" 
+                        Margin="0 0 8 0"
+                        ToolTip="{x:Static p:Resources.Clear_Filter}"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Button.Content>
+                        <Path Data="M0,0 L8,8 M0,8 L8,0" Stroke="#666666" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button.Content>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E5E5E5"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding SelectedFilterTemplate}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{x:Static p:Resources.Refresh_All}"
+                        Command="{Binding RefreshAllEventsCommand}"
+                        Margin="0 0 8 0" />
+                <Button Content="{x:Static p:Resources.Template_Rules}"
+                        Command="{Binding OpenRuleManagerCommand}"
+                        Margin="0 0 8 0" />
+                <Button Content="{x:Static p:Resources.Template_Editor}"
+                        Command="{Binding OpenTemplateEditorCommand}"
+                        Margin="0 0 8 0" />
+                <Button Content="{x:Static p:Resources.Complete_Selected}"
+                        Command="{Binding BatchArchiveCommand}"
+                        Visibility="{Binding ElementName=OngoingTab, Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                
+                <StackPanel Orientation="Horizontal" Margin="8,0,0,0" Visibility="{Binding ElementName=OngoingTab, Path=IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid>
+                        <ComboBox x:Name="GlobalScriptBox"
+                                  Width="150" 
+                                  ItemsSource="{Binding GlobalScripts}" 
+                                  SelectedItem="{Binding SelectedGlobalScript}" 
+                                  DisplayMemberPath="DisplayName"
+                                  ToolTip="{x:Static p:Resources.Select_Global_Script}" />
+                        <TextBlock Text="{x:Static p:Resources.Select_Script}"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0,20,0"
+                                   Foreground="#999999"
+                                   IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=GlobalScriptBox}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <Button Content="{x:Static p:Resources.Run_Script}" 
+                            Command="{Binding ExecuteGlobalScriptCommand}" 
+                            Margin="4,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <TabControl Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex}">
+            <TabItem x:Name="OngoingTab" Header="{x:Static p:Resources.Active_Events}">
+                <Grid AllowDrop="True"
+                      DragOver="OngoingGrid_OnDragOver"
+                      Drop="OngoingGrid_OnDrop">
+                    <DataGrid x:Name="OngoingGrid"
+                              ItemsSource="{Binding OngoingEvents}"
+                              SelectionMode="Extended"
+                              SelectionChanged="OngoingGrid_OnSelectionChanged"
+                              MouseDoubleClick="OngoingGrid_OnMouseDoubleClick"
+                              Sorting="OngoingGrid_Sorting"
+                              Loaded="DataGrid_OnLoaded"
+                              Unloaded="DataGrid_OnUnloaded"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
+                        </DataGrid.InputBindings>
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="FontWeight" Value="Normal" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasPriority}" Value="True">
+                                        <Setter Property="Background" Value="{Binding PriorityColor}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding HasNewMail}" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Style.Triggers>
+                                    <!-- 当有优先级且被选中时，背景透明（透出Row的颜色），文字黑色 -->
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="True" />
+                                            <Condition Binding="{Binding HasPriority}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                    </MultiDataTrigger>
+                                    <!-- 当无优先级且被选中时，使用默认高亮色（通常不需要显式设置，但为了保险可以设一下） -->
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="True" />
+                                            <Condition Binding="{Binding HasPriority}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Event Title" Binding="{Binding EventTitle}" Width="2*" />
+                            <DataGridTextColumn Header="{x:Static p:Resources.Last_Updated}" Binding="{Binding LastUpdatedOn, StringFormat=yyyy-MM-dd HH:mm}" Width="*" />
+                            <!-- <DataGridTextColumn Header="{x:Static p:Resources.Event_ID}" Binding="{Binding EventId}" Width="*" /> -->
+                            <DataGridTextColumn Header="Info" Binding="{Binding DisplayColumnText}" Width="1.5*" />
+                            <DataGridTemplateColumn Header="{x:Static p:Resources.Priority}" Width="50" SortMemberPath="PriorityLevel" CanUserSort="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding TogglePriorityCommand}" 
+                                                Content="{Binding PriorityIcon}" 
+                                                Width="50" 
+                                                Height="20"
+                                                HorizontalAlignment="Center"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                ToolTip="{x:Static p:Resources.Toggle_Priority}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                <MenuItem Header="{x:Static p:Resources.Change_Event_Title}"
+                                          Command="{Binding ChangeEventTitleCommand}"
+                                          CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <Separator />
+                                <MenuItem Header="{x:Static p:Resources.End_and_Archive_Event}"
+                                          Command="{Binding ArchiveSingleCommand}"
+                                          CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <Separator />
+                                <MenuItem Header="{x:Static p:Resources.Delete_Event}"
+                                          Command="{Binding DeleteCommand}" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.Completed_Events}">
+                <Grid Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
+                        <Button Content="{x:Static p:Resources.Export}" Margin="8 0 0 0" Click="ExportButton_OnClick" />
+                        
+                        <TextBlock Text="{x:Static p:Resources.From}" VerticalAlignment="Center" Margin="16,0,4,0"/>
+                        <DatePicker SelectedDate="{Binding FilterStartDate}" Width="100" VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Static p:Resources.To}" VerticalAlignment="Center" Margin="4,0,4,0"/>
+                        <DatePicker SelectedDate="{Binding FilterEndDate}" Width="100" VerticalAlignment="Center"/>
+                        
+                        <Button Content="{x:Static p:Resources.Reset_Month}" Command="{Binding ResetDateFilterCommand}" Margin="8,0,0,0"/>
+                    </StackPanel>
+                    <DataGrid x:Name="ArchivedGrid"
+                              Grid.Row="1"
+                              ItemsSource="{Binding ArchivedEvents}"
+                              SelectionMode="Extended"
+                              SelectionChanged="OngoingGrid_OnSelectionChanged"
+                              MouseDoubleClick="ArchivedGrid_OnMouseDoubleClick"
+                              Loaded="DataGrid_OnLoaded"
+                              Unloaded="DataGrid_OnUnloaded"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
+                        </DataGrid.InputBindings>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                <MenuItem Header="{x:Static p:Resources.Reopen_Event}"
+                                          Command="{Binding ReopenEventCommand}"
+                                          CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" />
+                                <Separator />
+                                <MenuItem Header="{x:Static p:Resources.Delete_Event}"
+                                          Command="{Binding DeleteCommand}" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Event Title" Binding="{Binding EventTitle}" Width="2*" />
+                            <DataGridTextColumn Header="{x:Static p:Resources.Last_Updated}" Binding="{Binding LastUpdatedOn, StringFormat=yyyy-MM-dd HH:mm}" Width="*" />
+                            <!-- <DataGridTextColumn Header="{x:Static p:Resources.Event_ID}" Binding="{Binding EventId}" Width="*" /> -->
+                            <DataGridTextColumn Header="Info" Binding="{Binding DisplayColumnText}" Width="1.5*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
+        <StatusBar Grid.Row="2" Background="#F0F0F0" BorderThickness="0,1,0,0" BorderBrush="#DDDDDD">
+            <StatusBar.Style>
+                <Style TargetType="StatusBar">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsRefreshing}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StatusBar.Style>
+            <StatusBarItem DockPanel.Dock="Right">
+                <ProgressBar Width="200" Height="12" Value="{Binding RefreshProgressValue}" Maximum="100" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding RefreshStatusText}" TextTrimming="CharacterEllipsis" ToolTip="{Binding RefreshStatusText}" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</UserControl>

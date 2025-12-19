@@ -1,0 +1,17 @@
+<Window
+        xmlns:p="clr-namespace:OSEMAddIn.Properties" x:Class="OSEMAddIn.Views.ConflictResolutionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{x:Static p:Resources.Import_Conflict}" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <StackPanel Margin="20">
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
+            <Run Text="{x:Static p:Resources.A_local_item_named}" />
+            <Run Text="{Binding ItemName, Mode=OneWay}" FontWeight="Bold" />
+            <Run Text="{x:Static p:Resources.already_exists_How_would_you_like_to_proceed}" />
+        </TextBlock>
+        
+        <Button Content="{x:Static p:Resources.Overwrite_Local}" Click="Overwrite_Click" Margin="0,0,0,10" />
+        <Button Content="{x:Static p:Resources.Keep_Local_Skip}" Click="Skip_Click" Margin="0,0,0,10" />
+        <Button Content="{x:Static p:Resources.Import_and_Rename}" Click="Rename_Click" />
+    </StackPanel>
+</Window>

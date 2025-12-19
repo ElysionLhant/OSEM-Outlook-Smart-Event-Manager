@@ -1,0 +1,341 @@
+<Window
+        xmlns:p="clr-namespace:OSEMAddIn.Properties" x:Class="OSEMAddIn.Views.EventManager.TemplateEditorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:OSEMAddIn.Converters"
+        mc:Ignorable="d"
+        Title="{x:Static p:Resources.Template_Config_Editor}" Height="600" Width="900" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0">
+            <!-- 仪表盘模板管理 -->
+            <TabItem Header="{x:Static p:Resources.Dashboard_Templates}">
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 模板列表 -->
+                    <DockPanel Grid.Column="0" Margin="0,0,10,0">
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Button Content="{x:Static p:Resources.Generate}" Command="{Binding AddTemplateCommand}" Width="50" Margin="0,0,5,0" />
+                            <Button Content="复制" Command="{Binding CopyTemplateCommand}" Width="50" Margin="0,0,5,0" />
+                            <Button Content="删除" Command="{Binding RemoveTemplateCommand}" Width="50" Margin="0,0,5,0" />
+                            <Button Content="..." Width="30" Click="MoreOptions_Click" Tag="{Binding ElementName=TemplateList}">
+                                <Button.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{x:Static p:Resources.Import_Template}" Command="{Binding ImportTemplateCommand}" />
+                                        <MenuItem Header="{x:Static p:Resources.Export_Selected_Template}" Command="{Binding ExportSelectedTemplatesCommand}" CommandParameter="{Binding PlacementTarget.Tag.SelectedItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                        <MenuItem Header="导出所有模板" Command="{Binding ExportAllTemplatesCommand}" />
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                        </StackPanel>
+                        <ListBox x:Name="TemplateList" SelectionMode="Extended" ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" DisplayMemberPath="DisplayName" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="TemplateList_SelectionChanged" />
+                    </DockPanel>
+
+                    <!-- 模板详情 -->
+                    <Grid Grid.Column="1" Visibility="{Binding IsDetailVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                            <TextBlock Text="{x:Static p:Resources.Template_Name}" FontWeight="Bold" />
+                            <TextBox Text="{Binding SelectedTemplate.DisplayName}" Margin="0,5,0,10" />
+                            <TextBlock Text="{x:Static p:Resources.Description}" FontWeight="Bold" />
+                            <TextBox Text="{Binding SelectedTemplate.Description}" Margin="0,5,0,10" />
+                        </StackPanel>
+
+                        <TabControl Grid.Row="1">
+                            <TabItem Header="{x:Static p:Resources.Fields_Regex}">
+                                <Grid Margin="0,10,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <DataGrid x:Name="FieldList" Grid.Row="0" ItemsSource="{Binding TemplateRegexes}" SelectedItem="{Binding SelectedRegexEntry}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="{x:Static p:Resources.Field_Name_Key}" Binding="{Binding FieldName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Width="150" />
+                                            <DataGridTextColumn Header="{x:Static p:Resources.Regex_Rule}" Binding="{Binding RegexPattern}" Width="*" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Button Content="{x:Static p:Resources.Add_Field}" Command="{Binding AddFieldCommand}" Padding="10,2" />
+                                        <Button Content="{x:Static p:Resources.Delete_Selected_Field}" Command="{Binding RemoveFieldCommand}" CommandParameter="{Binding ElementName=FieldList, Path=SelectedItem.FieldName}" Margin="10,0,0,0" Padding="10,2" />
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                            
+                            <TabItem Header="{x:Static p:Resources.Common_Files}">
+                                <Grid Margin="0,10,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <ListBox x:Name="TemplateFilesList" Grid.Row="0" ItemsSource="{Binding TemplateFiles}" SelectedItem="{Binding SelectedFile}" AllowDrop="True" Drop="TemplateFilesList_Drop" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                                    
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <Button Content="{x:Static p:Resources.Add_File}" Command="{Binding AddFileCommand}" Padding="10,2" />
+                                        <Button Content="{x:Static p:Resources.Remove_File}" Command="{Binding RemoveFileCommand}" CommandParameter="{Binding ElementName=TemplateFilesList, Path=SelectedItem}" Margin="10,0,0,0" Padding="10,2" />
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Prompt 管理 -->
+            <TabItem Header="{x:Static p:Resources.Prompt_Management}">
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <DockPanel Grid.Column="0" Margin="0,0,10,0">
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Button Content="{x:Static p:Resources.New_Prompt}" Command="{Binding AddPromptCommand}" Width="100" />
+                            <Button Content="删除" Command="{Binding RemovePromptCommand}" Width="50" Margin="5,0,0,0" />
+                        </StackPanel>
+                        <ListBox ItemsSource="{Binding Prompts}" SelectedItem="{Binding SelectedPrompt}" DisplayMemberPath="DisplayName" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </DockPanel>
+
+                    <Grid Grid.Column="1" Visibility="{Binding SelectedPrompt, Converter={StaticResource NullToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="{x:Static p:Resources.Prompt_Name}" />
+                            <TextBox Text="{Binding SelectedPrompt.DisplayName}" Margin="0,5,0,10" />
+                            
+                            <GroupBox Header="{x:Static p:Resources.Associated_Template_Optional}" Margin="0,0,0,10">
+                                <ComboBox ItemsSource="{Binding SelectableTemplatesView}" 
+                                          IsEditable="True" 
+                                          IsTextSearchEnabled="False"
+                                          StaysOpenOnEdit="True"
+                                          TextSearch.TextPath="DisplayName"
+                                          Text="{Binding TemplateSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                          GotFocus="ComboBox_GotFocus"
+                                          Margin="5">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding DisplayName}" 
+                                                      IsChecked="{Binding IsSelected}" 
+                                                      Margin="2"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="250" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static p:Resources.Prompt_Content}" Margin="0,0,0,5" />
+
+                            <TextBox x:Name="PromptBodyBox" Grid.Row="1" Grid.Column="0" 
+                                     Text="{Binding SelectedPrompt.Body, UpdateSourceTrigger=PropertyChanged}" 
+                                     AcceptsReturn="True" TextWrapping="Wrap" 
+                                     VerticalScrollBarVisibility="Auto" FontFamily="Consolas" />
+
+                            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5,0">
+                                <Button Content="{x:Static p:Resources.Insert}" Click="InsertVariable_Click" Padding="5,2" ToolTip="{x:Static p:Resources.Insert_selected_variable_at_cursor}" />
+                            </StackPanel>
+
+                            <GroupBox Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Header="{x:Static p:Resources.Available_Variables}" Margin="0,0,0,0">
+                                <ListBox x:Name="VariableList" ItemsSource="{Binding AvailableVariables}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Blue"/>
+                                                <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap" FontSize="10" Foreground="Gray"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </GroupBox>
+                        </Grid>
+                        
+                        <Button Grid.Row="2" Content="{x:Static p:Resources.Save_Prompt}" Command="{Binding SavePromptCommand}" HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,5" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- 脚本管理 -->
+            <TabItem Header="{x:Static p:Resources.Script_Management}">
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 脚本列表 -->
+                    <DockPanel Grid.Column="0" Margin="0,0,10,0">
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Button Content="{x:Static p:Resources.Add_Script}" Command="{Binding AddScriptCommand}" Width="100" />
+                            <Button Content="删除" Command="{Binding RemoveScriptCommand}" Width="50" Margin="5,0,0,0" />
+                        </StackPanel>
+                        <ListBox ItemsSource="{Binding Scripts}" SelectedItem="{Binding SelectedScript}" DisplayMemberPath="DisplayName" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    </DockPanel>
+
+                    <!-- 脚本详情 -->
+                    <Grid Grid.Column="1" Visibility="{Binding SelectedScript, Converter={StaticResource NullToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="{x:Static p:Resources.Script_Name}" />
+                            <TextBox Text="{Binding SelectedScript.DisplayName}" IsReadOnly="True" Margin="0,5,0,10" Background="#F0F0F0"/>
+                            
+                            <TextBlock Text="{x:Static p:Resources.Description}" />
+                            <TextBox Text="{Binding SelectedScript.Description}" Margin="0,5,0,10" LostFocus="ScriptConfig_LostFocus"/>
+
+                            <CheckBox Content="{x:Static p:Resources.Global_Script_Access_all_event_data}" IsChecked="{Binding SelectedScript.IsGlobal}" Margin="0,0,0,10" FontWeight="Bold" Click="ScriptConfig_LostFocus"/>
+
+                            <GroupBox Header="{x:Static p:Resources.Associated_Template_Optional}" Margin="0,0,0,10">
+                                <ComboBox ItemsSource="{Binding SelectableTemplatesForScriptView}" 
+                                          IsEditable="True" 
+                                          IsTextSearchEnabled="False"
+                                          StaysOpenOnEdit="True"
+                                          TextSearch.TextPath="DisplayName"
+                                          Text="{Binding ScriptTemplateSearchText, UpdateSourceTrigger=PropertyChanged}"
+                                          Margin="5">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding DisplayName}" 
+                                                      IsChecked="{Binding IsSelected}" 
+                                                      Margin="2"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,10">
+                            <TextBlock Text="{x:Static p:Resources.Script_Path}" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding SelectedScript.ScriptPath}" IsReadOnly="True" Margin="0,20,0,0" TextWrapping="Wrap" Background="#F0F0F0"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- LLM 设置 -->
+            <TabItem Header="{x:Static p:Resources.LLM_Settings}">
+                <StackPanel Margin="20">
+                    <TextBlock Text="{x:Static p:Resources.LLM_Model_Config_Global}" FontSize="16" FontWeight="Bold" Margin="0,0,0,20" />
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Provider:" VerticalAlignment="Center" Margin="0,0,0,10" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" SelectedValue="{Binding LlmProvider}" SelectedValuePath="Content" Margin="0,0,0,10">
+                            <ComboBoxItem Content="Ollama" />
+                            <ComboBoxItem Content="Custom" />
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Endpoint:" VerticalAlignment="Center" Margin="0,0,0,10" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LlmConfiguration.ApiEndpoint}" Margin="0,0,0,10" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Model Name:" VerticalAlignment="Center" Margin="0,0,0,10" />
+                        <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
+                            <ComboBox ItemsSource="{Binding OllamaModels}" Text="{Binding LlmConfiguration.ModelName}" IsEditable="True" Visibility="{Binding IsOllamaProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBox Text="{Binding LlmConfiguration.ModelName}" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="API Key:" VerticalAlignment="Center" Margin="0,0,0,10" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding LlmConfiguration.ApiKey}" Margin="0,0,0,10" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+
+                    <Button Content="{x:Static p:Resources.Save_Config}" Command="{Binding SaveLlmConfigCommand}" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,5" />
+                </StackPanel>
+            </TabItem>
+
+            <!-- 监听文件夹 -->
+            <TabItem Header="{x:Static p:Resources.Monitored_Folders}">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="{x:Static p:Resources.Custom_Monitored_Folders}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Grid.Row="0" Text="{x:Static p:Resources.Besides_default_Inbox_and_Sent_bab4c6}" Margin="0,25,0,10" TextWrapping="Wrap" />
+
+                    <DataGrid x:Name="FolderList" Grid.Row="1" ItemsSource="{Binding MonitoredFolders}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{x:Static p:Resources.Folder_Name}" Binding="{Binding Name}" Width="200" />
+                            <DataGridTextColumn Header="{x:Static p:Resources.Full_Path}" Binding="{Binding Path}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="{x:Static p:Resources.Add_Folder}" Command="{Binding AddFolderCommand}" Padding="10,5" Margin="0,0,10,0" />
+                        <Button Content="移除选中" Command="{Binding RemoveFolderCommand}" CommandParameter="{Binding ElementName=FolderList, Path=SelectedItem}" Padding="10,5" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- 导出/导入 -->
+            <TabItem Header="{x:Static p:Resources.Export_Import}">
+                <StackPanel Margin="20">
+                    <TextBlock Text="{x:Static p:Resources.System_Backup_Migration}" FontSize="16" FontWeight="Bold" Margin="0,0,0,20" />
+                    <TextBlock Text="{x:Static p:Resources.Export_all_current_settings_ex_c4a3e1}" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <Button Content="{x:Static p:Resources.Export_Backup}" Command="{Binding ExportBackupCommand}" HorizontalAlignment="Left" Padding="20,5" Margin="0,0,0,20" />
+                    
+                    <Separator Margin="0,0,0,20" />
+                    
+                    <TextBlock Text="{x:Static p:Resources.Import_Backup_Merge_Mode}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+                    <TextBlock Text="{x:Static p:Resources.Import_backup_file_Existing_da_edc9d3}" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <Button Content="{x:Static p:Resources.Import_Backup}" Command="{Binding ImportBackupCommand}" HorizontalAlignment="Left" Padding="20,5" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <Button Grid.Row="1" Content="{x:Static p:Resources.Save_All_Changes}" Command="{Binding SaveAllCommand}" HorizontalAlignment="Right" Margin="0,10,0,0" Padding="20,5" />
+    </Grid>
+</Window>
