@@ -134,5 +134,5 @@ Replace the links below with your own sponsorship pages:
 
 > "I hope the cognitive cost saved here allows you to return home and read a few pages of a book, to reserve attention for the people who truly matter, to write the lines you've been meaning to write, to simply daydream instead of being harvested by short videos, and to protect your possibilities from being stolen when you are most vulnerable.
 >
-> If this is achieved, then this is what I am here to do."
+> If this is achieved, then I have fulfilled my purpose."
 
