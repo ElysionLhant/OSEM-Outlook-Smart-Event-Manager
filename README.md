@@ -1,4 +1,4 @@
-# OSEM: Outlook Event Monitor
+# OSEM: Outlook Smart Event Manager
 > **Programmable, AI-Powered Event Management for Outlook.**
 > *Transform your inbox into a structured data center with Local LLM extraction and Python automation.*
 

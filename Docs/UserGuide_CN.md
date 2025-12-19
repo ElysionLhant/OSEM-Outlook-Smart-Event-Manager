@@ -1,7 +1,7 @@
-# OSEM (Outlook Event Monitor) 用户指南
+# OSEM (Outlook Smart Event Manager) 用户指南
 
 ## 简介
-OSEM (Outlook Event Monitor) 是一款专为 Microsoft Outlook 设计的强大 VSTO 插件，旨在简化基于事件的邮件管理。它将您的收件箱转化为结构化的事件跟踪系统，允许您对相关邮件进行分组，使用 LLM（大语言模型）或正则表达式提取关键信息，并通过 Python 脚本自动化工作流程。
+OSEM (Outlook Smart Event Manager) 是一款专为 Microsoft Outlook 设计的强大 VSTO 插件，旨在简化基于事件的邮件管理。它将您的收件箱转化为结构化的事件跟踪系统，允许您对相关邮件进行分组，使用 LLM（大语言模型）或正则表达式提取关键信息，并通过 Python 脚本自动化工作流程。
 
 **核心功能：**
 *   **以事件为中心的视图：** 根据主题模式自动将相关邮件分组为“事件”。
