@@ -356,27 +356,6 @@ namespace OSEMAddIn.Views.EventDetail
             return null;
         }
 
-        private void TitleTextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                textBox.IsReadOnly = false;
-                textBox.SelectAll();
-                textBox.Focus();
-            }
-        }
-
-        private void TitleTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                textBox.IsReadOnly = true;
-                // Trigger binding update explicitly if needed, but UpdateSourceTrigger=PropertyChanged handles it.
-                // However, we might want to ensure the selection is cleared.
-                textBox.SelectionLength = 0;
-            }
-        }
-
         private Point _startPoint;
         private bool _isDragging;
         private bool _pendingSelectionReset;

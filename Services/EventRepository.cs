@@ -1309,7 +1309,12 @@ namespace OSEMAddIn.Services
             if (email.Participants is not null && email.Participants.Length > 0)
             {
                 var existingParticipants = existing.Participants ?? Array.Empty<string>();
-                if (!existingParticipants.SequenceEqual(email.Participants, StringComparer.OrdinalIgnoreCase))
+                
+                // Fix: Use SetEquals to ignore order differences which caused false 'contentChanged'
+                var existingSet = new HashSet<string>(existingParticipants, StringComparer.OrdinalIgnoreCase);
+                var newSet = new HashSet<string>(email.Participants, StringComparer.OrdinalIgnoreCase);
+                
+                if (!existingSet.SetEquals(newSet))
                 {
                     existing.Participants = email.Participants;
                     changed = true;
@@ -1348,7 +1353,12 @@ namespace OSEMAddIn.Services
             
             if (changed)
             {
-                 if (!existing.IsNewOrUpdated && contentChanged)
+                 // Fix: Check ProcessedMessageIds before re-highlighting
+                 var isProcessed = record.ProcessedMessageIds != null && 
+                                   !string.IsNullOrEmpty(existing.InternetMessageId) && 
+                                   record.ProcessedMessageIds.Contains(existing.InternetMessageId);
+
+                 if (!existing.IsNewOrUpdated && contentChanged && !isProcessed)
                  {
                      existing.IsNewOrUpdated = true;
                  }
