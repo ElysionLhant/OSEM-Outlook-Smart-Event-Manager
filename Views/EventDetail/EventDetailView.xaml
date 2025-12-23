@@ -23,12 +23,9 @@
             <Button Content="{x:Static p:Resources.Back_to_List}" Command="{Binding BackCommand}" />
             <StackPanel Margin="12 0 0 0">
                 <TextBox x:Name="TitleTextBox"
-                         Text="{Binding EventTitle, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding EventTitle, UpdateSourceTrigger=LostFocus}"
                          FontSize="16"
-                         FontWeight="Bold"
-                         IsReadOnly="True"
-                         MouseDoubleClick="TitleTextBox_MouseDoubleClick"
-                         LostFocus="TitleTextBox_LostFocus" />
+                         FontWeight="Bold" />
                 <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
                     <TextBlock Text="{Binding EventId, StringFormat=ID: {0}}" Foreground="Gray" Margin="0 0 12 0" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding Status, StringFormat={x:Static p:Resources.Binding_Status_StringFormat_Status_0}}" Foreground="Gray" VerticalAlignment="Center" Margin="0 0 12 0"/>

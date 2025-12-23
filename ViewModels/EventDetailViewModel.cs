@@ -2419,6 +2419,16 @@ namespace OSEMAddIn.ViewModels
                 {
                     email.IsNewOrUpdated = false;
                     changed = true;
+
+                    // Fix: Add to ProcessedMessageIds to prevent re-highlighting on refresh
+                    if (!string.IsNullOrEmpty(email.InternetMessageId))
+                    {
+                        if (_currentEvent.ProcessedMessageIds == null)
+                        {
+                            _currentEvent.ProcessedMessageIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                        }
+                        _currentEvent.ProcessedMessageIds.Add(email.InternetMessageId);
+                    }
                 }
             }
 
