@@ -320,6 +320,25 @@
                 </Grid>
             </TabItem>
 
+            <!-- 文件区管理 -->
+            <TabItem Header="文件区管理">
+                <StackPanel Margin="20">
+                    <TextBlock Text="文件区储存设置" FontSize="16" FontWeight="Bold" Margin="0,0,0,20" />
+                    <TextBlock Text="设置事件文件区的本地储存路径。默认路径为 AppData。" TextWrapping="Wrap" Margin="0,0,0,10" />
+                    
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding EventFilesStoragePath}" IsReadOnly="True" VerticalContentAlignment="Center" />
+                        <Button Grid.Column="1" Content="..." Command="{Binding BrowseStoragePathCommand}" Padding="10,5" Margin="10,0,0,0" />
+                    </Grid>
+                    
+                    <TextBlock Text="注意：更改路径后，新创建的事件文件将保存在新位置。旧文件不会自动移动。" Foreground="Gray" TextWrapping="Wrap" />
+                </StackPanel>
+            </TabItem>
+
             <!-- 导出/导入 -->
             <TabItem Header="{x:Static p:Resources.Export_Import}">
                 <StackPanel Margin="20">

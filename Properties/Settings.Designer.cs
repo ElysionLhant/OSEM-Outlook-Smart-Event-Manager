@@ -33,5 +33,17 @@ namespace OSEMAddIn.Properties {
                 this["MonitoredFolders"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EventFilesStoragePath {
+            get {
+                return ((string)(this["EventFilesStoragePath"]));
+            }
+            set {
+                this["EventFilesStoragePath"] = value;
+            }
+        }
     }
 }

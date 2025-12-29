@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:OSEMAddIn.ViewModels"
         mc:Ignorable="d"
-        Title="{x:Static p:Resources.Export_Options}" Height="500" Width="500"
+        Title="{x:Static p:Resources.Export_Options}" Height="600" Width="500"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance viewModels:ExportOptionsViewModel}">
@@ -28,6 +28,10 @@
             <ComboBox ItemsSource="{Binding Templates}" 
                       SelectedItem="{Binding SelectedTemplate}"
                       DisplayMemberPath="DisplayName"/>
+            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                <CheckBox Content="{x:Static p:Resources.In_Progress}" IsChecked="{Binding ExportInProgress}" Margin="0,0,16,0"/>
+                <CheckBox Content="{x:Static p:Resources.Archived}" IsChecked="{Binding ExportArchived}"/>
+            </StackPanel>
         </StackPanel>
 
         <!-- Date Range -->

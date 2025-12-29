@@ -2540,17 +2540,30 @@ namespace OSEMAddIn.ViewModels
                 foreach (var file in filesToRemove)
                 {
                     // 1. Try removing from Event specific files
-                    if (_currentEvent?.AdditionalFiles != null && _currentEvent.AdditionalFiles.Contains(file.FilePath))
+                    // Use OriginalPath if available, else FilePath
+                    string pathToCheck = !string.IsNullOrEmpty(file.OriginalPath) ? file.OriginalPath : file.FilePath;
+
+                    if (_currentEvent?.AdditionalFiles != null && _currentEvent.AdditionalFiles.Contains(pathToCheck))
                     {
-                        _currentEvent.AdditionalFiles.Remove(file.FilePath);
+                        _currentEvent.AdditionalFiles.Remove(pathToCheck);
                         eventChanged = true;
                     }
                     
-                    // 2. Try removing from Template files
-                    if (SelectedTemplate?.AttachmentPaths != null && SelectedTemplate.AttachmentPaths.Contains(file.FilePath))
+                    // 2. Try removing from Template files (by excluding them)
+                    if (SelectedTemplate?.AttachmentPaths != null && SelectedTemplate.AttachmentPaths.Contains(pathToCheck))
                     {
-                        SelectedTemplate.AttachmentPaths.Remove(file.FilePath);
-                        templateChanged = true;
+                        if (_currentEvent != null)
+                        {
+                            if (_currentEvent.ExcludedTemplateFiles == null)
+                            {
+                                _currentEvent.ExcludedTemplateFiles = new List<string>();
+                            }
+                            if (!_currentEvent.ExcludedTemplateFiles.Contains(pathToCheck))
+                            {
+                                _currentEvent.ExcludedTemplateFiles.Add(pathToCheck);
+                                eventChanged = true;
+                            }
+                        }
                     }
                 }
 
@@ -2622,7 +2635,7 @@ namespace OSEMAddIn.ViewModels
                     }
                     
                     await UpdateFolderAsync();
-                }
+                               }
             }
         }
 
@@ -2751,7 +2764,17 @@ namespace OSEMAddIn.ViewModels
 
                 foreach (var path in SelectedTemplate.AttachmentPaths)
                 {
-                    list.Add(new TemplateFileViewModel(path));
+                    // Check if excluded
+                    if (_currentEvent?.ExcludedTemplateFiles != null && _currentEvent.ExcludedTemplateFiles.Contains(path))
+                    {
+                        continue;
+                    }
+
+                    string localPath = EnsureFileLocal(path);
+                    var vm = new TemplateFileViewModel(localPath);
+                    vm.OriginalPath = path;
+                    vm.IsCommonFile = true;
+                    list.Add(vm);
                 }
             }
 
@@ -2765,10 +2788,14 @@ namespace OSEMAddIn.ViewModels
 
                 foreach (var path in _currentEvent.AdditionalFiles)
                 {
+                    string localPath = EnsureFileLocal(path);
+                    
                     // Avoid duplicates if the file is already in the template
-                    if (!list.Any(x => string.Equals(x.FilePath, path, StringComparison.OrdinalIgnoreCase)))
+                    if (!list.Any(x => string.Equals(x.OriginalPath, path, StringComparison.OrdinalIgnoreCase) || string.Equals(x.FilePath, localPath, StringComparison.OrdinalIgnoreCase)))
                     {
-                        list.Add(new TemplateFileViewModel(path));
+                        var vm = new TemplateFileViewModel(localPath);
+                        vm.OriginalPath = path;
+                        list.Add(vm);
                     }
                 }
             }
@@ -2825,6 +2852,41 @@ namespace OSEMAddIn.ViewModels
             catch (System.Exception ex)
             {
                 StatusMessage = string.Format(Properties.Resources.Copy_failed_ex_Message, ex.Message);
+            }
+        }
+
+        private string EnsureFileLocal(string originalPath)
+        {
+            if (_currentEvent == null) return originalPath;
+            
+            string storageRoot = Properties.Settings.Default.EventFilesStoragePath;
+            if (string.IsNullOrWhiteSpace(storageRoot))
+            {
+                storageRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OSEMAddIn");
+            }
+            
+            string eventFolder = Path.Combine(storageRoot, "documents", _currentEvent.EventId);
+            try
+            {
+                if (!Directory.Exists(eventFolder))
+                {
+                    Directory.CreateDirectory(eventFolder);
+                }
+                
+                string fileName = Path.GetFileName(originalPath);
+                string localPath = Path.Combine(eventFolder, fileName);
+                
+                if (!File.Exists(localPath) && File.Exists(originalPath))
+                {
+                    File.Copy(originalPath, localPath, true);
+                }
+                
+                return File.Exists(localPath) ? localPath : originalPath;
+            }
+            catch (System.Exception ex)
+            {
+                DebugLogger.Log($"Failed to ensure local file for {originalPath}: {ex.Message}");
+                return originalPath;
             }
         }
     }

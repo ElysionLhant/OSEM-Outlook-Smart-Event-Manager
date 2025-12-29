@@ -62,6 +62,8 @@ namespace OSEMAddIn.ViewModels
             
             SaveAllCommand = new RelayCommand(_ => SaveAll());
 
+            BrowseStoragePathCommand = new RelayCommand(_ => BrowseStoragePath());
+
             AvailableVariables = new ObservableCollection<PromptVariable>
             {
                 new PromptVariable { Name = Properties.Resources.Dashboard_Structure, Description = Properties.Resources.Auto_generated_JSON_field_stru_56821c, InsertText = "{{DASHBOARD_JSON}}" },
@@ -98,6 +100,7 @@ namespace OSEMAddIn.ViewModels
         public ICommand ExportAllTemplatesCommand { get; }
         public ICommand ExportBackupCommand { get; }
         public ICommand ImportBackupCommand { get; }
+        public ICommand BrowseStoragePathCommand { get; }
 
         private ObservableCollection<SelectableTemplateViewModel> _allSelectableTemplates = new();
         public ICollectionView SelectableTemplatesView { get; }
@@ -1037,6 +1040,31 @@ namespace OSEMAddIn.ViewModels
                 Properties.Settings.Default.MonitoredFolders.Add(folder.EntryId);
             }
             Properties.Settings.Default.Save();
+        }
+
+        public string EventFilesStoragePath
+        {
+            get => Properties.Settings.Default.EventFilesStoragePath;
+            set
+            {
+                if (Properties.Settings.Default.EventFilesStoragePath != value)
+                {
+                    Properties.Settings.Default.EventFilesStoragePath = value;
+                    Properties.Settings.Default.Save();
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private void BrowseStoragePath()
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    EventFilesStoragePath = dialog.SelectedPath;
+                }
+            }
         }
     }
 

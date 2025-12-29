@@ -759,4 +759,10 @@
   <data name="Outlook_is_busy_processing_items" xml:space="preserve">
     <value>Outlook 正在处理项目...</value>
   </data>
+  <data name="In_Progress" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>已归档</value>
+  </data>
 </root>

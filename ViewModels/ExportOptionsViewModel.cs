@@ -21,6 +21,8 @@ namespace OSEMAddIn.ViewModels
         private string _targetPath = string.Empty;
         private string _folderNamingMode = "Event Title";
         private string _selectedNamingKey = string.Empty;
+        private bool _exportInProgress = false;
+        private bool _exportArchived = true;
 
         public ExportOptionsViewModel(IEnumerable<DashboardTemplate> templates, DashboardTemplate? initialTemplate, DateTime startDate, DateTime endDate)
         {
@@ -145,6 +147,18 @@ namespace OSEMAddIn.ViewModels
                     RaisePropertyChanged(nameof(AreSpecificFileTypesEnabled));
                 }
             }
+        }
+
+        public bool ExportInProgress
+        {
+            get => _exportInProgress;
+            set => SetProperty(ref _exportInProgress, value);
+        }
+
+        public bool ExportArchived
+        {
+            get => _exportArchived;
+            set => SetProperty(ref _exportArchived, value);
         }
 
         public bool AreSpecificFileTypesEnabled => !ExportAllFileTypes;

@@ -2300,5 +2300,23 @@ namespace OSEMAddIn.Properties {
                 return ResourceManager.GetString("Outlook_is_busy_processing_items", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 Archived 的本地化字符串。
+        /// </summary>
+        public static string Archived {
+            get {
+                return ResourceManager.GetString("Archived", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 In Progress 的本地化字符串。
+        /// </summary>
+        public static string In_Progress {
+            get {
+                return ResourceManager.GetString("In_Progress", resourceCulture);
+            }
+        }
     }
 }

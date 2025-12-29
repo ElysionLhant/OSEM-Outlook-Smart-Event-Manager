@@ -206,6 +206,7 @@ namespace OSEMAddIn.ViewModels
                 _searchTerm = value ?? string.Empty;
                 RaisePropertyChanged();
                 OngoingEvents.Refresh();
+                ArchivedEvents.Refresh();
             }
         }
 
@@ -399,6 +400,16 @@ namespace OSEMAddIn.ViewModels
             if (obj is not EventListItemViewModel item)
             {
                 return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                bool matchesSearch = item.EventTitle.IndexOf(SearchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                     item.EventId.IndexOf(SearchTerm, StringComparison.OrdinalIgnoreCase) >= 0;
+                if (!matchesSearch)
+                {
+                    return false;
+                }
             }
 
             if (FilterStartDate.HasValue && item.LastUpdatedOn.Date < FilterStartDate.Value.Date)
@@ -780,8 +791,11 @@ namespace OSEMAddIn.ViewModels
                         templateMatch = true;
                     }
 
+                    bool statusMatch = (options.ExportInProgress && r.Status == EventStatus.Open) ||
+                                       (options.ExportArchived && r.Status == EventStatus.Archived);
+
                     return templateMatch &&
-                           r.Status == EventStatus.Archived &&
+                           statusMatch &&
                            r.LastUpdatedOn.Date >= options.StartDate.Date &&
                            r.LastUpdatedOn.Date <= options.EndDate.Date;
                 }).ToList();
@@ -887,20 +901,111 @@ namespace OSEMAddIn.ViewModels
                             {
                                  var timePath = System.IO.Path.Combine(eventFolderPath, "AdditionalFiles");
                                  System.IO.Directory.CreateDirectory(timePath);
-                                 foreach(var file in record.AdditionalFiles)
+
+                                 // 1. Export User Added Files (Always export)
+                                 if (record.AdditionalFiles != null)
                                  {
-                                     if(System.IO.File.Exists(file))
+                                     foreach(var file in record.AdditionalFiles)
                                      {
-                                         var fName = System.IO.Path.GetFileName(file);
-                                         var ext = System.IO.Path.GetExtension(fName).TrimStart('.').ToLowerInvariant();
-                                         
-                                         if(options.ExportAllFileTypes || (allowedExtensions != null && allowedExtensions.Contains(ext)))
+                                         // Check if file exists at original path, if not try default storage (AppData)
+                                         string sourceFilePath = file;
+                                         if (!System.IO.File.Exists(sourceFilePath))
                                          {
-                                             try
+                                             string storageRoot = OSEMAddIn.Properties.Settings.Default.EventFilesStoragePath;
+                                             if (string.IsNullOrWhiteSpace(storageRoot))
                                              {
-                                                 System.IO.File.Copy(file, System.IO.Path.Combine(timePath, fName), true);
+                                                 storageRoot = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "OSEMAddIn");
                                              }
-                                             catch{}
+                                             string localStorePath = System.IO.Path.Combine(storageRoot, "documents", record.EventId, System.IO.Path.GetFileName(file));
+                                             if (System.IO.File.Exists(localStorePath))
+                                             {
+                                                 sourceFilePath = localStorePath;
+                                             }
+                                         }
+
+                                         if(System.IO.File.Exists(sourceFilePath))
+                                         {
+                                             var fName = System.IO.Path.GetFileName(sourceFilePath);
+                                             var ext = System.IO.Path.GetExtension(fName).TrimStart('.').ToLowerInvariant();
+                                             
+                                             if(options.ExportAllFileTypes || (allowedExtensions != null && allowedExtensions.Contains(ext)))
+                                             {
+                                                 try
+                                                 {
+                                                     System.IO.File.Copy(sourceFilePath, System.IO.Path.Combine(timePath, fName), true);
+                                                 }
+                                                 catch{}
+                                             }
+                                         }
+                                     }
+                                 }
+
+                                 // 2. Export Template Files (Only if modified - Hash Check)
+                                 if (options.SelectedTemplate != null && options.SelectedTemplate.AttachmentPaths != null)
+                                 {
+                                     foreach (var tmplFile in options.SelectedTemplate.AttachmentPaths)
+                                     {
+                                         if (record.ExcludedTemplateFiles != null && record.ExcludedTemplateFiles.Contains(tmplFile))
+                                             continue;
+
+                                         // Construct local path
+                                         string storageRoot = OSEMAddIn.Properties.Settings.Default.EventFilesStoragePath;
+                                         if (string.IsNullOrWhiteSpace(storageRoot))
+                                         {
+                                             storageRoot = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "OSEMAddIn");
+                                         }
+                                         string localStorePath = System.IO.Path.Combine(storageRoot, "documents", record.EventId, System.IO.Path.GetFileName(tmplFile));
+
+                                         bool isModified = false;
+                                         string? sourceToExport = null;
+
+                                         if (System.IO.File.Exists(localStorePath))
+                                         {
+                                             // Local copy exists, check if it differs from original
+                                             if (System.IO.File.Exists(tmplFile))
+                                             {
+                                                 try
+                                                 {
+                                                     string localHash = ComputeFileHash(localStorePath);
+                                                     string originalHash = ComputeFileHash(tmplFile);
+                                                     if (localHash != originalHash)
+                                                     {
+                                                         isModified = true;
+                                                         sourceToExport = localStorePath;
+                                                     }
+                                                 }
+                                                 catch
+                                                 {
+                                                     // If we can't read files to hash, assume modified to be safe
+                                                     isModified = true;
+                                                     sourceToExport = localStorePath;
+                                                 }
+                                             }
+                                             else
+                                             {
+                                                 // Original missing, but we have local. Treat as modified/unique.
+                                                 isModified = true;
+                                                 sourceToExport = localStorePath;
+                                             }
+                                         }
+                                         // If local doesn't exist, it's definitely not modified (user hasn't touched it), so skip.
+
+                                         if (isModified && sourceToExport != null)
+                                         {
+                                             var fName = System.IO.Path.GetFileName(tmplFile);
+                                             var ext = System.IO.Path.GetExtension(fName).TrimStart('.').ToLowerInvariant();
+                                             
+                                             if(options.ExportAllFileTypes || (allowedExtensions != null && allowedExtensions.Contains(ext)))
+                                             {
+                                                 try
+                                                 {
+                                                     System.IO.File.Copy(sourceToExport, System.IO.Path.Combine(timePath, fName), true);
+                                                 }
+                                                 catch (System.Exception ex)
+                                                 {
+                                                     DebugLogger.Log($"Failed to export template file {fName}: {ex.Message}");
+                                                 }
+                                             }
                                          }
                                      }
                                  }
@@ -918,6 +1023,18 @@ namespace OSEMAddIn.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private static string ComputeFileHash(string filePath)
+        {
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                using (var stream = System.IO.File.OpenRead(filePath))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
             }
         }
     }

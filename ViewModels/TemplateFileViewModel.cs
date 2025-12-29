@@ -36,5 +36,8 @@ namespace OSEMAddIn.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public string OriginalPath { get; set; } = string.Empty;
+        public bool IsCommonFile { get; set; }
     }
 }

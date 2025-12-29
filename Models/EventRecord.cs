@@ -21,6 +21,7 @@ namespace OSEMAddIn.Models
         public List<EmailItem> Emails { get; set; } = new();
         public List<AttachmentItem> Attachments { get; set; } = new();
         public List<string> AdditionalFiles { get; set; } = new();
+        public List<string> ExcludedTemplateFiles { get; set; } = new();
         public HashSet<string> RelatedSubjects { get; set; } = new(StringComparer.OrdinalIgnoreCase);
         public HashSet<string> Participants { get; set; } = new(StringComparer.OrdinalIgnoreCase);
         public HashSet<string> ProcessedMessageIds { get; set; } = new(StringComparer.OrdinalIgnoreCase);
