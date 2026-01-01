@@ -57,7 +57,7 @@ The **Event Manager** is the central hub for tracking your active workflows.
 *   **Filter Template:** Show only events associated with a specific template.
 *   **Refresh All:** Reloads all events from the monitored folders.
 *   **Template Rules:** Configure auto-assignment of templates based on email participants.
-*   **Template Editor:** Open the configuration center (Templates, Prompts, Scripts).
+*   **Template Editor:** Open the configuration center (Templates, Prompts, Scripts, Local File Repository Address).
 *   **Complete Selected:** Archive the selected event(s).
 *   **Run Script:** Execute a global Python script on the selected event.
 *   **Export:** Open the Export Options window to batch export event data.
@@ -88,7 +88,7 @@ Double-clicking an event opens the **Event Detail View**, where you process spec
 *   **Attachments:** Lists all attachments found in the event's emails.
 *   **File Area:** A dedicated local folder for this event (independent for each event).
     *   **Interaction:** Supports **dragging and dropping files** directly from the "Attachments" list, Desktop, or File Explorer into this area.
-    *   **Generate Folder:** Creates a local folder for the event.
+    *   **Generate Folder:** Creates a folder with the same name as the current event under the "Local File Repository Address" configured in the "Template Editor".
     *   **Update to Folder:** Saves selected email attachments to this local folder.
 
 ---
@@ -98,6 +98,14 @@ Accessed via the "Export" button in the main interface. This feature allows you 
 
 *   **Selection Scope:**
     *   **Select Template:** Export only specific types of events (e.g., only "Logistics Orders").
+    *   **Date Range:** Filter events by their last update date.
+    *   **Event Status:** Choose to export **Archived** events, **Ongoing** events, or both.
+*   **Content Options:**
+    *   **Dashboard Data:** Exports the structured data (CSV).
+    *   **Attachments:** Exports email attachments.
+    *   **Additional Files:** Exports files from the event's local folder.
+        *   **Smart Template File Export:** OSEM automatically calculates the MD5 hash of template files in the event folder. If a file has not been modified (hash matches the original template), it will be skipped during export to save space. Only modified files are exported.
+*   **File Types:** Filter which file extensions to export (e.g., PDF only).
     *   **Event Range:** Choose to export events within a specific date range.
 *   **Export Content:**
     *   **Event Dashboard Data:** Export an Excel/CSV table containing all extracted fields (e.g., InvoiceNo, ETA).

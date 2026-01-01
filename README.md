@@ -27,7 +27,8 @@ By restructuring fragmented emails into structured **"Events"**, OSEM lets Outlo
 ### 1. Streamlined Workflow
 *   **Drag & Drop Creation:** Create a tracking event by simply dragging an email into the Event Manager.
 *   **Context Awareness:** Automatically aggregates all emails from the same conversation thread.
-*   **Dedicated File Area:** Each event gets a mapped local folder for managing attachments and external files together.
+*   **Dedicated File Area:** Each event gets a mapped local folder (configurable repository path) for managing attachments and external files together.
+*   **Smart Export:** Supports exporting both ongoing and archived events. Includes intelligent hash verification for template files—only modified files are exported to save space.
 
 ### 2. Python Scripting Interface
 Extend Outlook's capabilities with standard Python scripts.
