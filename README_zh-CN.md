@@ -44,12 +44,22 @@ OSEM 的代码实现并不复杂，它只是做了一件最简单却最重要的
 
 ---
 
-## 工作流概览 (Workflow Overview)
+## 工作流演示 (Workflow in Action)
 
-1.  **定义模板 (Define Template):** 配置您需要追踪的字段（例如：`订单号`, `ETA`, `客户名`）。
-2.  **捕获 (Capture):** 将邮件拖入 OSEM 初始化一个事件。
-3.  **提取 (Extract):** 点击 "AI Extract" 自动填充仪表盘字段。
-4.  **自动化 (Automate):** 运行 Python 脚本处理文件或导出数据。
+### 1. 定义模板 (Define Template)
+配置您需要追踪的字段（例如：`订单号`, `ETA`, `客户名`），定制专属工作流。
+
+### 2. 捕获：拖拽创建 (Capture)
+只需将邮件拖入 OSEM，即可初始化一个事件，并自动聚合相关会话。
+![创建事件](Docs/Images/Merge.gif)
+
+### 3. 提取：AI 驱动 (Extract)
+点击 "AI Extract" 调用本地 LLM，瞬间自动填充仪表盘字段。
+![AI 提取](Docs/Images/llm.gif)
+
+### 4. 导出与自动化 (Export & Automate)
+运行 Python 脚本处理文件，或使用智能哈希校验导出数据。
+![智能导出](Docs/Images/Export.gif)
 
 ---
 

@@ -44,12 +44,22 @@ Extend Outlook's capabilities with standard Python scripts.
 
 ---
 
-## Workflow Overview
+## Workflow in Action
 
-1.  **Define Template:** Configure the fields you need to track (e.g., `OrderNo`, `ETA`, `Customer`).
-2.  **Capture:** Drag an email into OSEM to initialize an event.
-3.  **Extract:** Use "AI Extract" to auto-fill the dashboard fields.
-4.  **Automate:** Run Python scripts to handle files or export data.
+### 1. Define Template
+Configure the fields you need to track (e.g., `OrderNo`, `ETA`, `Customer`) to fit your specific workflow.
+
+### 2. Capture: Drag & Drop
+Simply drag an email into OSEM to initialize an event. It automatically aggregates the conversation thread.
+![Create Event](Docs/Images/Merge.gif)
+
+### 3. Extract: AI Powered
+Use "AI Extract" with local LLM to auto-fill the dashboard fields instantly.
+![AI Extraction](Docs/Images/llm.gif)
+
+### 4. Export & Automate
+Run Python scripts to handle files or export data with smart hash verification.
+![Smart Export](Docs/Images/Export.gif)
 
 ---
 
