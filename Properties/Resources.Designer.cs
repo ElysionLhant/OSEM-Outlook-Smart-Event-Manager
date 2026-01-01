@@ -691,15 +691,6 @@ namespace OSEMAddIn.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Example script: Extract HAWB fields from PDF attachments. 的本地化字符串。
-        /// </summary>
-        public static string Example_script_Extract_HAWB_fi_402944 {
-            get {
-                return ResourceManager.GetString("Example_script_Extract_HAWB_fi_402944", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Excel Spreadsheet (.xls, .xlsx, .csv) 的本地化字符串。
         /// </summary>
         public static string Excel_Spreadsheet_xls_xlsx_csv {
@@ -835,15 +826,6 @@ namespace OSEMAddIn.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Extract HAWB related fields from email and attachments and output JSON: {{DASHBOARD_JSON}} 的本地化字符串。
-        /// </summary>
-        public static string Extract_HAWB_related_fields_fr_c126bf {
-            get {
-                return ResourceManager.GetString("Extract_HAWB_related_fields_fr_c126bf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Extracting... 的本地化字符串。
         /// </summary>
         public static string Extracting {
@@ -930,6 +912,42 @@ namespace OSEMAddIn.Properties {
         public static string File_Area {
             get {
                 return ResourceManager.GetString("File_Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File Area Management 的本地化字符串。
+        /// </summary>
+        public static string File_Area_Management {
+            get {
+                return ResourceManager.GetString("File_Area_Management", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 File Area Storage Settings 的本地化字符串。
+        /// </summary>
+        public static string File_Area_Storage_Settings {
+            get {
+                return ResourceManager.GetString("File_Area_Storage_Settings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Set the local storage path for event files. Default is AppData. 的本地化字符串。
+        /// </summary>
+        public static string File_Area_Storage_Desc {
+            get {
+                return ResourceManager.GetString("File_Area_Storage_Desc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Note: After changing the path, newly created event files will be saved in the new location. Old files will not be moved automatically. 的本地化字符串。
+        /// </summary>
+        public static string File_Area_Storage_Note {
+            get {
+                return ResourceManager.GetString("File_Area_Storage_Note", resourceCulture);
             }
         }
         
@@ -1128,15 +1146,6 @@ namespace OSEMAddIn.Properties {
         public static string Global_Script_Access_all_event_data {
             get {
                 return ResourceManager.GetString("Global_Script_Access_all_event_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 HAWB Detail Extraction 的本地化字符串。
-        /// </summary>
-        public static string HAWB_Detail_Extraction {
-            get {
-                return ResourceManager.GetString("HAWB_Detail_Extraction", resourceCulture);
             }
         }
         

@@ -74,13 +74,6 @@ namespace OSEMAddIn.Services
                     DisplayName = Properties.Resources.General_Info_Extraction,
                     Body = Properties.Resources.Please_extract_dashboard_field_6914e4,
                     TemplateOverrideId = null
-                },
-                new PromptDefinition
-                {
-                    PromptId = "prompt.hawb",
-                    DisplayName = Properties.Resources.HAWB_Detail_Extraction,
-                    Body = Properties.Resources.Extract_HAWB_related_fields_fr_c126bf,
-                    TemplateOverrideId = "LOGISTICS_DEMO"
                 }
             };
             SaveToDisk();

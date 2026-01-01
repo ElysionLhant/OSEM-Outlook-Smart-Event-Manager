@@ -102,27 +102,7 @@ namespace OSEMAddIn.Services
 
             if (scripts.Count == 0)
             {
-                var samplePath = Path.Combine(_scriptRoot, "HAWB_PDF_Extractor.py");
-                if (!File.Exists(samplePath))
-                {
-                    File.WriteAllText(samplePath,
-                        "import sys\n"
-                        + "import json\n\n"
-                        + "def main():\n"
-                        + "    print(\"Sample extractor executed.\")\n"
-                        + "    if len(sys.argv) > 1:\n"
-                        + "        print(\"Arguments:\", json.dumps(sys.argv[1:]))\n\n"
-                        + "if __name__ == '__main__':\n"
-                        + "    main()\n");
-                }
-
-                scripts.Add(new PythonScriptDefinition
-                {
-                    ScriptId = "HAWB_PDF_Extractor",
-                    DisplayName = "HAWB_PDF_Extractor.py",
-                    ScriptPath = samplePath,
-                    Description = Properties.Resources.Example_script_Extract_HAWB_fi_402944
-                });
+                // No default scripts
             }
 
             return scripts;

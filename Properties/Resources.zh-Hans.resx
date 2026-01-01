@@ -85,19 +85,13 @@
     <value>通用信息提取</value>
   </data>
   <data name="Please_extract_dashboard_field_6914e4" xml:space="preserve">
-    <value>请根据以下邮件内容提取仪表盘字段：{{DASHBOARD_JSON}}</value>
-  </data>
-  <data name="HAWB_Detail_Extraction" xml:space="preserve">
-    <value>HAWB详细信息提取</value>
-  </data>
-  <data name="Extract_HAWB_related_fields_fr_c126bf" xml:space="preserve">
-    <value>从邮件和附件中提取HAWB相关字段并输出JSON：{{DASHBOARD_JSON}}</value>
+    <value>请根据以下邮件内容提取仪表盘字段：{{DASHBOARD_JSON}}
+
+邮件内容：
+{{MAIL_BODY}}</value>
   </data>
   <data name="External_Python_Analysis_Script" xml:space="preserve">
     <value>外部Python分析脚本</value>
-  </data>
-  <data name="Example_script_Extract_HAWB_fi_402944" xml:space="preserve">
-    <value>示例脚本：从PDF附件中提取HAWB字段。</value>
   </data>
   <data name="Script_not_found" xml:space="preserve">
     <value>未找到脚本</value>
@@ -761,6 +755,18 @@
   </data>
   <data name="In_Progress" xml:space="preserve">
     <value>进行中</value>
+  </data>
+  <data name="File_Area_Management" xml:space="preserve">
+    <value>文件区管理</value>
+  </data>
+  <data name="File_Area_Storage_Settings" xml:space="preserve">
+    <value>文件区储存设置</value>
+  </data>
+  <data name="File_Area_Storage_Desc" xml:space="preserve">
+    <value>设置事件文件区的本地储存路径。默认路径为 AppData。</value>
+  </data>
+  <data name="File_Area_Storage_Note" xml:space="preserve">
+    <value>注意：更改路径后，新创建的事件文件将保存在新位置。旧文件不会自动移动。</value>
   </data>
   <data name="Archived" xml:space="preserve">
     <value>已归档</value>

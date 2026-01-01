@@ -85,19 +85,13 @@
     <value>General Info Extraction</value>
   </data>
   <data name="Please_extract_dashboard_field_6914e4" xml:space="preserve">
-    <value>Please extract dashboard fields based on the following email content: {{DASHBOARD_JSON}}</value>
-  </data>
-  <data name="HAWB_Detail_Extraction" xml:space="preserve">
-    <value>HAWB Detail Extraction</value>
-  </data>
-  <data name="Extract_HAWB_related_fields_fr_c126bf" xml:space="preserve">
-    <value>Extract HAWB related fields from email and attachments and output JSON: {{DASHBOARD_JSON}}</value>
+    <value>Please extract dashboard fields based on the following email content: {{DASHBOARD_JSON}}
+
+Email Content:
+{{MAIL_BODY}}</value>
   </data>
   <data name="External_Python_Analysis_Script" xml:space="preserve">
     <value>External Python Analysis Script</value>
-  </data>
-  <data name="Example_script_Extract_HAWB_fi_402944" xml:space="preserve">
-    <value>Example script: Extract HAWB fields from PDF attachments.</value>
   </data>
   <data name="Script_not_found" xml:space="preserve">
     <value>Script not found</value>
@@ -761,6 +755,18 @@
   </data>
   <data name="In_Progress" xml:space="preserve">
     <value>In Progress</value>
+  </data>
+  <data name="File_Area_Management" xml:space="preserve">
+    <value>File Area Management</value>
+  </data>
+  <data name="File_Area_Storage_Settings" xml:space="preserve">
+    <value>File Area Storage Settings</value>
+  </data>
+  <data name="File_Area_Storage_Desc" xml:space="preserve">
+    <value>Set the local storage path for event files. Default is AppData.</value>
+  </data>
+  <data name="File_Area_Storage_Note" xml:space="preserve">
+    <value>Note: After changing the path, newly created event files will be saved in the new location. Old files will not be moved automatically.</value>
   </data>
   <data name="Archived" xml:space="preserve">
     <value>Archived</value>
